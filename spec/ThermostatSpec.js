@@ -1,6 +1,7 @@
 describe('Thermostat', function() {
 
   var thermo;
+  var save;
 
   beforeEach(function() {
     thermo = new Thermostat();
@@ -37,6 +38,34 @@ describe('Thermostat', function() {
     it('has max of 32 in normal mode', function() {
       thermo.setPowerSaving(false);
       expect(thermo.max).toBe(32);
+    });
+  });
+
+  describe('increase, decrease and reset', function() {
+    it('notches up temperature on demand', function() {
+      thermo.increase();
+      expect(thermo.temp).toBe(21);
+    });
+    it('notches down temperature on demand', function() {
+      thermo.decrease();
+      expect(thermo.temp).toBe(19);
+    });
+    it('stops increasing temp at maximum', function() {
+      while(thermo.temp < thermo.max) {thermo.increase()}
+      save = thermo.temp;
+      thermo.increase();
+      expect(thermo.temp).toBe(save);
+    });
+    it('stops decreasing temp at minimum', function() {
+      while(thermo.temp > thermo.min) {thermo.decrease()}
+      save = thermo.temp;
+      thermo.decrease();
+      expect(thermo.temp).toBe(save);
+    });
+    it('resets temperature to 20 on demand', function() {
+      thermo.increase();
+      thermo.resetTemp();
+      expect(thermo.temp).toBe(20);
     });
   });
 
