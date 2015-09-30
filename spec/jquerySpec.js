@@ -1,6 +1,8 @@
 describe('Thermostat', function() {
   beforeEach(function() {
+    loadFixtures('src/Thermostat.js');
     loadFixtures('Thermostat.html');
+    loadFixtures('Application.js');
   });
 
   it('displays default temperature', function() {
@@ -8,11 +10,8 @@ describe('Thermostat', function() {
   });
 
   it("increases temperature by 1 degree", function() {
-    var $temp = $('#temp');
-    var $increase = $('#increase');
-
-    $button.click();
-    expect($temp_display.text()).toContainText("21");
+    $('.up').click()
+    expect($('#temp_display').text()).toContainText("21");
   });
 
 });

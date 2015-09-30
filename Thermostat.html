@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Thermostat</title>
+  <script src="src/Thermostat.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.js">
+  </script>
+</head>
+
+<body>
+
+<p><span id='temp_display'></span>&deg;C</p>
+
+
+<p><input type='checkbox' id='powersave' checked>
+  <label for='powersave'>&nbsp;power saving</label></p>
+
+<p><button class='up'>UP</button> <button class='down'>DOWN</button></p>
+<p><button id='reset_button'>RESET</button></p>
+
+</body>
+
+<script>
+  var thermostat = new Thermostat();
+  var showTemp = function() { $("#temp_display").text(thermostat.temp); };
+
+  $(document).ready(function() {
+    showTemp();
+
+    $(".up").click(function(event) {
+      thermostat.increase();
+      showTemp();
+    });
+
+    $(".down").click(function(event) {
+      thermostat.decrease();
+      showTemp();
+    });
+
+    $("#reset_button").click(function(event) {
+      thermostat.resetTemp();
+      showTemp();
+    });
+
+    $("#powersave").click(function(event) {
+      $("#powersave").checked ? thermostat.modeOn() : thermostat.modeOff();
+      showTemp();
+    });
+  });
+
+</script>
+
+<script src="Application.js"></script>
+
+</html>
