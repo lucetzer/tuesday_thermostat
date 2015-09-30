@@ -14,5 +14,7 @@ function clickReset() {
   updateTempDisplay();
 }
 
-document.body.onload = initialiseApp;
-document.getElementById('reset_button').onclick = clickReset;
+document.onload = function() {
+  initialiseApp;
+  document.getElementById('reset_button').onclick = clickReset;
+};
